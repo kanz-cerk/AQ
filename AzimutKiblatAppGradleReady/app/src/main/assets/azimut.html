@@ -1,0 +1,409 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Azimut dan Bayang Kiblat
+    </title>
+</head>
+<style>
+body {
+background-color: wheat;
+h1 {
+color: #495dcd;
+text-align: center;
+}
+h2 {
+color: #266a6a;
+text-align: center;
+font-family: Ghostmeat;
+}
+
+select {
+    background-color: black;
+color: #efec24;
+text-align: center;
+font-family: Arial;
+font-size: 100%;
+margin: 15px;
+}
+p {
+color: Black;
+text-align: center;
+font-family: Ghostmeat;
+}
+h3 {
+color: #771f0b;
+text-align: center;
+font-family: Ghostmeat;
+}
+h4 {
+color: #f0ecea;
+text-align: center;
+font-family: Calibri;
+}
+label {
+color: Black;
+text-align: center;
+font-family: Ghostmeat;
+}
+button {
+    background-color: cyan;
+color: black;
+text-align: center;
+font-family: Arial;
+font-size: 80%;
+margin: 10px;
+}
+} 
+</style>
+
+<body>
+<h1>
+AZIMUT DAN BAYANG KIBLAT
+</h1>
+
+<h2>
+Al-Hasib : Moh Nashor Mojokerto
+</h2>
+
+<h3> Tanggal :
+    <select id="Tanggal">
+        <option>01</option>
+        <option>02</option>
+        <option>03</option>
+        <option>04</option>
+        <option>05</option>
+        <option>06</option>
+        <option>07</option>
+        <option>08</option>
+        <option>09</option>
+        <option>10</option>
+        <option>11</option>
+        <option>12</option>
+        <option>13</option>
+        <option>14</option>
+        <option>15</option>
+        <option>16</option>
+        <option>17</option>
+        <option>18</option>
+        <option>19</option>
+        <option>20</option>
+        <option>21</option>
+        <option>22</option>
+        <option>23</option>
+        <option>24</option>
+        <option>25</option>
+        <option>26</option>
+        <option>27</option>
+        <option>28</option>
+        <option>29</option>
+        <option>30</option>
+        <option>31</option>
+    </select>
+    <select id="Bulan">
+        <option value="01">Januari</option>
+        <option value="02">Februari</option>
+        <option value="03">Maret</option>
+        <option value="04">April</option>
+        <option value="05">Mei</option>
+        <option value="06">Juni</option>
+        <option value="07">Juli</option>
+        <option value="08">Agustus</option>
+        <option value="09">September</option>
+        <option value="10">Oktober</option>
+        <option value="11">Nopember</option>
+        <option value="12">Desember</option>
+    </select>
+    <select id="Tahun">
+        <option>2004</option>
+        <option>2024</option>
+        <option>2025</option>
+        <option>2026</option>
+        <option>2027</option>
+        <option>2028</option>
+        <option>2029</option>
+    </select>
+</h3>  
+<h4> 
+    <label>
+        Lokasi ..=====><input value="Sidoarjo" type="edittext" id="namaKota"> <br>
+        Latitude .====><input value="-7.4463163" type="edittext" id="Lt"> <br>
+        Longitude '===><input value="112.4264101" type="edittext" id="Lt2"> <br>
+        Altitude =====><input value="5" type="edittext" id="Lt3"> <br>
+        Time Zone ===><input value="7" type="edittext" id="Lt4"> <br> 
+    </label>
+</h4>
+<h3>
+    <button onclick="BtHitung()"><b>PROSES</button>
+    <button onclick="BtHapus()"><b>HAPUS</button>
+</h3>
+<h4>
+<p>
+    <span id="Hasil0"></span>
+</p>
+<p>
+    <span id="Hasil1"></span>
+</p>
+</h4>
+<h3>
+SEMOGA BERMANFAAT
+</h3>
+</body>
+
+<script>
+    function BtHapus(){
+    Hasil0.innerHTML="<i>"+"<b>"+"Data Terhapus";
+    Hasil1.innerHTML="<b>"+"Silakan Klik Tombol Proses";
+}
+function BtHitung(){
+    var lokasi,LOK,P,L,Tt,Tz;
+    lokasi=document.getElementById("namaKota").value;
+    P=document.getElementById("Lt").value;
+    L=document.getElementById("Lt2").value;
+    Tt=document.getElementById("Lt3").value;
+    Tz=document.getElementById("Lt4").value;
+    
+    if(lokasi==""){lokasi="Sidoarjo";}
+    else {lokasi=lokasi;}
+    if(P==""){P="-7.4463163";}
+    else {P=P;}
+    if(L==""){L="112.4264101";}
+    else {L=L;}
+    if(Tt==""){Tt="5";}
+    else {Tt=Tt;}
+    if(Tz==""){Tz="7";}
+    else {Tz=Tz;}
+    P=P*1;
+    L=L*1;
+    Tt=Tt*1;
+    Tz=Tz*1;
+    var ket;
+    if (Tz==7) {ket=" WIB";} 
+    else if (Tz==8) {ket=" WITA";} 
+    else if (Tz==9) {ket=" WIT";}
+    else {ket=" GMT+"+Tz;} 
+
+    var ltkaba,bjkaba,A,h,Az,AQ,AQ1;
+    ltkaba=21.42191389;
+    bjkaba=39.82951945;
+    A=MOD(360-bjkaba+L,360);
+    h=ASIN(SIN(P)*SIN(ltkaba)+COS(P)*COS(ltkaba)*COS(A));
+    Az=ACOS((SIN(ltkaba)-SIN(P)*SIN(h))/COS(P)/COS(h));
+    AQ=360-Az;
+    if(A>180){AQ1=Az;}
+    else {AQ1=AQ;}
+
+    LOK="Lokasi = "+lokasi;
+    var pltz="Lintang Tempat = "+Dms(P)+"<br>"+
+    "Bujur Tempat = "+Dms(L)+"<br>"+
+    "Tinggi Tempat = "+(Tt)+"mdpl"+"<br>"+
+    "Time Zone = "+(Tz);
+    var azq=
+    "Lintang Ka'bah = "+Dms(ltkaba)+"<br>"+
+    "Bujur Ka'bah = "+Dms(bjkaba)+"<br>"+
+    "A = "+Dms(A)+"<br>"+
+    "h = "+Dms(h)+"<br>"+
+    "Az = "+Dms(Az)+"<br>"+
+    "AQ = "+Dms(AQ1);
+
+    var tanggalM,bulanM,tahunM,bulanM1,tahunM1,NamaBulanM,Desi,kr,kr1,jd;
+    tanggalM=document.getElementById("Tanggal").value;
+    bulanM=document.getElementById("Bulan").value;
+    tahunM=document.getElementById("Tahun").value;
+    tanggalM=tanggalM*1;
+    bulanM=bulanM*1;
+    tahunM=tahunM*1;
+    if (bulanM==1){NamaBulanM="Januari";} else
+    if (bulanM==2){NamaBulanM="Februari";} else
+    if (bulanM==3){NamaBulanM="Maret";} else
+    if (bulanM==4){NamaBulanM="April";} else
+    if (bulanM==5){NamaBulanM="Mei";} else
+    if (bulanM==6){NamaBulanM="Juni";} else
+    if (bulanM==7){NamaBulanM="Juli";} else
+    if (bulanM==8){NamaBulanM="Agustus";} else
+    if (bulanM==9){NamaBulanM="September";} else
+    if (bulanM==10){NamaBulanM="Oktober";} else
+    if (bulanM==11){NamaBulanM="November";} else
+    if (bulanM==12){NamaBulanM="Desember";} else
+    {NamaBulanM="Januari";}
+    if (bulanM<3){bulanM1=bulanM+12;tahunM1=tahunM-1;} 
+    else {bulanM1=bulanM;tahunM1=tahunM;}
+    kr=2-INT(tahunM/100)+INT(INT(tahunM/100)/4);
+    Desi=tahunM+bulanM/100+tanggalM/10000;
+    if (Desi>=1582.1015) {kr1=kr;} else {kr1=0;}
+    jd=INT(365.25*(tahunM1+4716))+INT(30.6001*(bulanM1+1))+tanggalM+((17.38333-Tz)/24)+kr1-1524.5;
+    jd=ROUND(jd,3);
+    var HP,hr,ps,NamaHari,NamaPasaran,Hari,Pasaran;
+    HP=INT(jd+3);
+    hr=MOD(HP,7);
+    ps=MOD(HP,5);
+    NamaHari=["Sabtu","Ahad","Senin","Selasa","Rabu","Kamis","Jum'at"];
+    NamaPasaran=["Wage","Kliwon","Legi","Pahing","Pon"];
+    Hari=NamaHari[hr];
+    Pasaran=NamaPasaran[ps];
+    var BA1,BA2,BA3,BA4,BA5,BA6,BA7,BA8,BA9,BA10,BA11,BA12,BA13,BA14;
+    BA1=(jd-2451545)/36525;
+    BA2=FRAC(280.46645+36000.76983*BA1,360);
+    BA3=FRAC(357.52910+35999.05030*BA1,360);
+    BA4=FRAC(125.04-1934.136*BA1,360);
+    BA5=(17.264/3600)*SIN(BA4)+(0.206/3600)*SIN(2*BA4);
+    BA6=(-1.264/3600)*SIN(2*BA2);
+    BA7=(9.23/3600)*COS(BA4)-(0.090/3600)*COS(2*BA4);
+    BA8=(0.548/3600)*COS(2*BA2);
+    BA9=23.43929111+BA7+BA8-(46.8150/3600)*BA1;
+    BA10=(6898.06/3600)*SIN(BA3)+(72.095/3600)*SIN(2*BA3)+(0.966/3600)*SIN(3*BA3);
+    BA11=BA2+BA10+BA5+BA6-(20.47/3600);
+    BA12=ASIN(SIN(BA11)*SIN(BA9));
+    BA13=(-1.915*SIN(BA3)+-0.02*SIN(2*BA3)+2.466*SIN(2*BA11)+-0.053*SIN(4*BA11))/15;
+    var BQ11,BQ12,BQ13,BQ14,BQ15,BQ16,BQ17;
+    BQ11=90-P;
+    BQ12=ATAN(1/(COS(BQ11)*TAN(AQ1)));
+    BQ13=ACOS(TAN(BA12)*TAN(BQ11)*COS(BQ12));
+    BQ14=0-(BQ12-BQ13)/15+12;
+    BQ15=BQ14-BA13+((Tz*15)-L)/15;
+    BQ16=0-(BQ12+BQ13)/15+12;
+    BQ17=BQ16-BA13+((Tz*15)-L)/15;
+
+    Hasil0.innerHTML=LOK+"<br>"+pltz+"<br>"+azq;
+    Hasil1.innerHTML=" Hari "+Hari+" "+Pasaran+", "+tanggalM+" "+NamaBulanM+" "+tahunM+" M"+"<br>"
+    + "Julian Day = "+jd+"<br>"
+    + "Juz Asal M = "+BA1+"<br>"
+    + "Wasatus Syams = "+Dms2(BA2)+"<br>"
+    + "Khosotus Syams = "+Dms2(BA3)+"<br>"
+    + "Uqdah Syams = "+Dms2(BA4)+"<br>"
+    + "Tashih Awal = "+Dms2(BA5)+"<br>"
+    + "Tashih Tsan = "+Dms2(BA6)+"<br>"
+    + "Tashih Tsal = "+Dms2(BA7)+"<br>"
+    + "Tashih Robi = "+Dms2(BA8)+"<br>"
+    + "Mail Kullyi = "+Dms2(BA9)+"<br>"
+    + "Ta'dil Syam = "+Dms2(BA10)+"<br>"
+    + "Bujur Syams = "+Dms2(BA11)+"<br>"
+    + "Deklinasi M = "+Dms2(BA12)+"<br>"
+    + "Perata Waktu = "+Hms2(BA13)+"<br>"
+    + "B = "+Dms2(BQ11)+"<br>"
+    + "P = "+Dms2(BQ12)+"<br>"
+    + "Ca = "+Dms2(BQ13)+"<br>"
+    + "BQ1 WIS = "+Hms2(BQ14)+"<br>"
+    + "BQ1 WD = "+Hms2(BQ15)+ket+"<br>"
+    + "BQ2 WIS = "+Hms2(MOD(BQ16,24))+"<br>"
+    + "BQ2 WD = "+Hms2(MOD(BQ17,24))+ket+"<br>";
+    
+
+}
+function MOD (Data,Data1){
+    return Data-Data1*Math.floor(Data/Data1);
+}
+function FRAC (Data,Data1){
+    return Data-Math.floor(Data/Data1)*Data1;
+}
+function ROUND (Data,Data1){
+    var A,B,C,D,E,h1;
+    h1=Math.pow(10,Data1);
+    A=INT(Data);
+    B=(Data-A)*h1;
+    C=INT(B);
+    D=B-C;
+    if(D>0.5){E=1;}
+    else {E=0;}
+    return A+(C+E)/h1;
+}
+function INT (Data){
+    return Math.floor(Data);
+}
+function Rad (Deg){
+    return Deg*(Math.atan(1)/45);
+}
+function Deg (Rad){
+    return Rad*(45/Math.atan(1));
+}
+function TAN (Data){
+return Math.tan(Rad(Data));
+}
+function COS (Data){
+return Math.cos(Rad(Data));
+}
+function SIN (Data){
+return Math.sin(Rad(Data));
+}
+function ASIN (Data){
+return Deg(Math.asin(Data));
+}
+function ACOS (Data){
+return Deg(Math.acos(Data));
+}
+function ATAN (Data){
+return Deg(Math.atan(Data));
+}
+function Dms(Data2){
+    var Data,Dtk,Mnt,Drj;
+        Data=Math.abs(Data2);
+    const deg=Math.floor(Data);
+    const min=Math.floor((Data-deg)*60);
+    const sec=((Data-deg-min/60)*3600).toFixed(0);
+    
+    if(sec<60){Dtk=sec;Mnt=min;}
+    else {Dtk=0;Mnt=min+1;}
+    if(Mnt<60){Mnt=Mnt;Drj=deg;}
+    else {Mnt=0;Drj=deg+1;}
+
+    var tanda,tandaD,tandaM,tandaS;
+    if(Data2<0){tanda="-"}
+    else {tanda="+"}
+    if (Drj<10){tandaD="0"}
+    else {tandaD=""}
+    if (Mnt<10){tandaM="0"}
+    else {tandaM=""}
+    if (Dtk<10){tandaS="0"}
+    else {tandaS=""}
+    return tanda+tandaD+Drj+"°"+tandaM+Mnt+"'"+tandaS+Dtk+"''";
+}
+
+function Dms2(Data2){
+    var Data,Dtk,Mnt,Drj;
+        Data=Math.abs(Data2);
+    const deg=Math.floor(Data);
+    const min=Math.floor((Data-deg)*60);
+    const sec=((Data-deg-min/60)*3600).toFixed(2);
+    
+    if(sec<60){Dtk=sec;Mnt=min;}
+    else {Dtk=0;Mnt=min+1;}
+    if(Mnt<60){Mnt=Mnt;Drj=deg;}
+    else {Mnt=0;Drj=deg+1;}
+
+    var tanda,tandaD,tandaM,tandaS;
+    if(Data2<0){tanda="-"}
+    else {tanda="+"}
+    if (Drj<10){tandaD="0"}
+    else {tandaD=""}
+    if (Mnt<10){tandaM="0"}
+    else {tandaM=""}
+    if (Dtk<10){tandaS="0"}
+    else {tandaS=""}
+    return tanda+tandaD+Drj+"°"+tandaM+Mnt+"'"+tandaS+Dtk+"''";
+}
+function Hms2(Data2){
+    var Data,Dtk,Mnt,Drj;
+        Data=Math.abs(Data2);
+    const deg=Math.floor(Data);
+    const min=Math.floor((Data-deg)*60);
+    const sec=((Data-deg-min/60)*3600).toFixed(2);
+    
+    if(sec<60){Dtk=sec;Mnt=min;}
+    else {Dtk=0;Mnt=min+1;}
+    if(Mnt<60){Mnt=Mnt;Drj=deg;}
+    else {Mnt=0;Drj=deg+1;}
+
+    var tanda,tandaD,tandaM,tandaS;
+    if(Data2<0){tanda="-"}
+    else {tanda="+"}
+    if (Drj<10){tandaD="0"}
+    else {tandaD=""}
+    if (Mnt<10){tandaM="0"}
+    else {tandaM=""}
+    if (Dtk<10){tandaS="0"}
+    else {tandaS=""}
+    return tanda+tandaD+Drj+":"+tandaM+Mnt+":"+tandaS+Dtk+"";
+}
+
+</script>
+</html>
